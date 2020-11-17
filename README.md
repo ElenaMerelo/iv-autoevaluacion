@@ -33,3 +33,79 @@ Añado un fichero `.travis.yml` al directorio raíz de mi directorio
 Queda finalmente:
 
 ![](img/4-5.png)
+
+## Hito 5 
+**Ejercicio 1** Darse de alta en Vercel y Firebase, y descargarse los SDKs para poder trabajar con ellos localmente.
+Me voy a [la página web de Vercel](vercel.com) y me registro con Github: 
+
+![](img/5-1.png) 
+
+Con lo que ya tengo mi perfil creado: 
+
+![](img/5-2.png)
+
+Instalamos la CLI de vercel con `npm i -g vercel` 
+
+Para darme de alta en Firebase también me voy a la página web, me logeo con la cuenta de google y a volar: 
+
+![](img/5-3.png) 
+
+Añadimos elEl SDK de administrador Node.js de Firebase con `npm install firebase-admin --save`
+
+**Ejercicio 2**  Tomar alguna de las funciones de prueba de Vercel, y hacer despliegues de prueba con el mismo.
+
+En mi dashboard de vercel, le doy a projects y una vez ahí a importar proyecto: 
+
+![](img/5-4.png)
+
+Instalo vercel en mi GitHub:
+
+![](img/5-5.png) 
+
+Et voi là: 
+
+![](img/5-6.png)
+
+Creo un ejemplo básico para probar si funciona: 
+
+~~~ 
+module.exports = (req, res) => {
+  res.send(`Hi there!`);
+};
+~~~ 
+
+Me conecto con vercel: 
+
+![](img/5-7.png)
+
+Y vemos que ha funcionado woohoo: 
+
+![](img/5-7ç8.png)
+
+**Ejercicio 3** Tomar alguna de las funciones de prueba de Netlify, y hacer despliegues de prueba con el mismo.
+
+Me registro también con GitHub: 
+
+![](img/5-9.png)
+
+Y ya tengo mi página, más bonica que tó: 
+
+![](img/5-10.png)
+
+Instalo la CLI: 
+
+![](img/5-11.png)
+
+Para lanzar un ejemplo: 
+
+![](img/5-12.png)
+
+![](img/5-13.png)
+
+Me logeo con Netlify, le doy autorización a la CLI, y al hacer deploy: 
+
+![](img/5-14.png)
+
+Y ya estaaaAAAAaaá: 
+
+![](img/5-15.png)
