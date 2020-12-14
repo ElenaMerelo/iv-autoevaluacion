@@ -34,7 +34,8 @@ Queda finalmente:
 
 ![](img/4-5.png)
 
-## Hito 5 
+## Hito 5
+
 **Ejercicio 1** Darse de alta en Vercel y Firebase, y descargarse los SDKs para poder trabajar con ellos localmente.
 Me voy a [la página web de Vercel](vercel.com) y me registro con Github: 
 
@@ -109,3 +110,69 @@ Me logeo con Netlify, le doy autorización a la CLI, y al hacer deploy:
 Y ya estaaaAAAAaaá: 
 
 ![](img/5-15.png)
+
+## Hito 6
+
+
+Para instalar `etcd` vamos a [el repositorio oficial](https://github.com/etcd-io/etcd/releases) y miramos el número de versión que queremos y lo instalamos siguiendo estos pasos:
+
+~~~bash
+tar xvf etcd-v3.4.14-linux-amd64.tar.gz
+cd etcd-v3.4.14-linux-amd64
+sudo mv etcd etcdctl /usr/local/bin 
+sudo mkdir -p /var/lib/etcd/
+sudo mkdir /etc/etcd
+sudo groupadd --system etcd
+sudo useradd -s /sbin/nologin --system -g etcd etcd
+sudo chown -R etcd:etcd /var/lib/etcd/
+sudo vim /etc/systemd/system/etcd.service
+~~~
+
+Escribimos:
+
+~~~
+[Unit]
+Description=etcd key-value store
+Documentation=https://github.com/etcd-io/etcd
+After=network.target
+
+[Service]
+User=etcd
+Type=notify
+Environment=ETCD_DATA_DIR=/var/lib/etcd
+Environment=ETCD_NAME=%m
+ExecStart=/usr/local/bin/etcd
+Restart=always
+RestartSec=10s
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target
+~~~
+
+Por último:
+
+~~~
+sudo systemctl  daemon-reload
+sudo systemctl  start etcd.service
+~~~
+
+Como vemos aquí, la configuración funciona correctamente:
+
+![](./img/etcd.png)
+
+Source: [este artículo](https://computingforgeeks.com/how-to-install-etcd-on-ubuntu-18-04-ubuntu-16-04/)
+
+Con este pequeño programa podemos consultar la variable:
+
+~~~javascript
+const { Etcd3 } = require("etcd3");
+const client = new Etcd3();
+
+(async () => {
+  const fooValue = await client.get("A").string();
+  console.log("foo was:", fooValue);
+})();
+~~~
+
+El resto de ejercicios se dan por hechos en mi [aplicación](https://github.com/elenamerelo/goFit).
